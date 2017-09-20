@@ -68,6 +68,12 @@ void ofApp::setup(){
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
+    
+    //--- OUTPUT OPS
+    nodeType = new gtf::NodeType<CalcOutputNode>(GTF_UID("CalcOutputNode"), "Output");
+    nodeType->inputConnectionsDesc.push_back(inputADesc);
+    calcGraphType->registerNodeType(nodeType);
+    
     calcGraphInstance = new CalcNodeGraph(calcGraphType);
 }
 
@@ -82,6 +88,13 @@ void ofApp::draw(){
 
     //--------------required to call this at beginning
     this->gui.begin();
+    
+    OutputNode* output_node = OutputNode::CAST(calcGraphInstance->selectedNodes.front());
+    if(output_node && output_node->type == ECalcNodeType::OUTPUT){
+        float val = output_node->number;
+        cout << "val = " << val;
+        ofBackground(val,255);
+    }
     
     ImGuiWindowFlags flags = 0;
     flags |= ImGuiWindowFlags_NoCollapse;
@@ -115,7 +128,6 @@ void ofApp::draw(){
                 wave_node->dirty = ImGui::InputFloat("Amp Min", &wave_node->amp_min);
                 wave_node->dirty = ImGui::InputFloat("Amp Max", &wave_node->amp_max);
             }
-            
         }
     }
     ImGui::End();

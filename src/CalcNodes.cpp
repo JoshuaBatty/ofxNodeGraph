@@ -9,6 +9,20 @@
 #include "CalcNodes.h"
 
 //--------------------------------------------------------------
+void OutputNode::update() {
+    gtf::NodeConnectionF32 * input = gtf::NodeConnectionF32::CAST(inputConnections[0]);
+        
+    if(inputConnections[0]->input != nullptr &&
+       inputConnections[0]->input->isReady) {
+        gtf::NodeConnectionF32 const * inputSource = gtf::NodeConnectionF32::CAST(inputConnections[0]->input);
+        number = input->data = inputSource->data;
+    }
+    else {
+        number = input->data = 0;
+    }
+}
+
+//--------------------------------------------------------------
 void CalcWaveNode::update() {
     gtf::NodeConnectionF32 * output = gtf::NodeConnectionF32::CAST(outputConnections[0]);
     

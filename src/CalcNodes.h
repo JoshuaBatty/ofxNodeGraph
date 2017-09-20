@@ -27,7 +27,8 @@ enum class ECalcNodeType : uint8_t
     CNT_SUBSTRACT,
     CNT_MULTIPLY,
     CNT_DIVIDE,
-    WAVEFORM
+    WAVEFORM,
+    OUTPUT
 };
 
 struct ConnectionDesc
@@ -50,11 +51,27 @@ public:
 };
 
 //------------------------
+class OutputNode : public CalcNode
+{
+public:
+    OutputNode(ECalcNodeType _t) : CalcNode(_t){};
+    void update() override;
+    float Passthrough(float a){ return a; }
+    static OutputNode* CAST(gtf::Node* node){ return dynamic_cast<OutputNode*>(node); }
+};
+
+class CalcOutputNode : public OutputNode
+{
+public:
+    CalcOutputNode() : OutputNode(ECalcNodeType::OUTPUT){};
+    float Passthrough(float a){ return a; }
+};
+
+//------------------------
 class CalcWaveNode : public CalcNode
 {
 public:
     CalcWaveNode(ECalcNodeType _t) : CalcNode(_t){};
-    bool dirty { true };
 
     void update() override;
     virtual float Result(float x) { return 0; };
@@ -91,7 +108,6 @@ public:
     CalcNoiseNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
     float Result(float x) { return waves.noise.result(x); }
 };
-
 //-------------------------
 
 class CalcNumberNode : public CalcNode
