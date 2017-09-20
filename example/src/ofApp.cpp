@@ -22,13 +22,14 @@ void ofApp::setup(){
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
+    //--- MATH OPS
     nodeType = new gtf::NodeType<CalcAddNode>(GTF_UID("CalcAddNode"), "Add");
     nodeType->inputConnectionsDesc.push_back(inputADesc);
     nodeType->inputConnectionsDesc.push_back(inputBDesc);
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
-    nodeType = new gtf::NodeType<CalcSubstractNode>(GTF_UID("CalcSubstractNode"), "Substract");
+    nodeType = new gtf::NodeType<CalcSubstractNode>(GTF_UID("CalcSubstractNode"), "Subtract");
     nodeType->inputConnectionsDesc.push_back(inputADesc);
     nodeType->inputConnectionsDesc.push_back(inputBDesc);
     nodeType->outputConnectionsDesc.push_back(numberDesc);
@@ -43,6 +44,27 @@ void ofApp::setup(){
     nodeType = new gtf::NodeType<CalcDivideNode>(GTF_UID("CalcDivideNode"), "Divide");
     nodeType->inputConnectionsDesc.push_back(inputADesc);
     nodeType->inputConnectionsDesc.push_back(inputBDesc);
+    nodeType->outputConnectionsDesc.push_back(numberDesc);
+    calcGraphType->registerNodeType(nodeType);
+    
+    //--- WAVEFORMS
+    nodeType = new gtf::NodeType<CalcSineNode>(GTF_UID("CalcSineNode"), "Sine");
+    nodeType->outputConnectionsDesc.push_back(numberDesc);
+    calcGraphType->registerNodeType(nodeType);
+    
+    nodeType = new gtf::NodeType<CalcTriangleNode>(GTF_UID("CalcTriangleNode"), "Triangle");
+    nodeType->outputConnectionsDesc.push_back(numberDesc);
+    calcGraphType->registerNodeType(nodeType);
+    
+    nodeType = new gtf::NodeType<CalcSquareNode>(GTF_UID("CalcSquareNode"), "Square");
+    nodeType->outputConnectionsDesc.push_back(numberDesc);
+    calcGraphType->registerNodeType(nodeType);
+    
+    nodeType = new gtf::NodeType<CalcSawNode>(GTF_UID("CalcSawNode"), "Sawtooth");
+    nodeType->outputConnectionsDesc.push_back(numberDesc);
+    calcGraphType->registerNodeType(nodeType);
+    
+    nodeType = new gtf::NodeType<CalcNoiseNode>(GTF_UID("CalcNoiseNode"), "Noise");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
@@ -84,6 +106,14 @@ void ofApp::draw(){
             if(node && node->type == ECalcNodeType::CNT_NUMBER)
             {
                 node->dirty = ImGui::InputFloat("Value", &node->number);
+            }
+            
+            CalcWaveNode* wave_node = CalcWaveNode::CAST(calcGraphInstance->selectedNodes.front());
+            if(wave_node && wave_node->type == ECalcNodeType::WAVEFORM)
+            {
+                wave_node->dirty = ImGui::InputFloat("Speed", &wave_node->speed);
+                wave_node->dirty = ImGui::InputFloat("Amp Min", &wave_node->amp_min);
+                wave_node->dirty = ImGui::InputFloat("Amp Max", &wave_node->amp_max);
             }
             
         }

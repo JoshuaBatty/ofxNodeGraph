@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include <NodeGraph.h>
+#include "Waveforms.h"
 
 #define MAX_CONNECTION_COUNT 32
 
@@ -25,7 +26,8 @@ enum class ECalcNodeType : uint8_t
     CNT_ADD,
     CNT_SUBSTRACT,
     CNT_MULTIPLY,
-    CNT_DIVIDE
+    CNT_DIVIDE,
+    WAVEFORM
 };
 
 struct ConnectionDesc
@@ -47,6 +49,51 @@ public:
     static CalcNode* CAST(gtf::Node* node){ return dynamic_cast<CalcNode*>(node); }
 };
 
+//------------------------
+class CalcWaveNode : public CalcNode
+{
+public:
+    CalcWaveNode(ECalcNodeType _t) : CalcNode(_t){};
+    bool dirty { true };
+
+    void update() override;
+    virtual float Result(float x) { return 0; };
+    Waveforms waves;
+    float amp_min { -1.0 };
+    float amp_max { 1.0 };
+    float speed { 1.0 };
+    
+    static CalcWaveNode* CAST(gtf::Node* node){ return dynamic_cast<CalcWaveNode*>(node); }
+};
+
+class CalcSineNode : public CalcWaveNode {
+public:
+    CalcSineNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
+    float Result(float x) { return waves.sine.result(x); }
+};
+class CalcTriangleNode : public CalcWaveNode {
+public:
+    CalcTriangleNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
+    float Result(float x) { return waves.tri.result(x); }
+};
+class CalcSquareNode : public CalcWaveNode {
+public:
+    CalcSquareNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
+    float Result(float x) { return waves.pulse.result(x); }
+};
+class CalcSawNode : public CalcWaveNode {
+public:
+    CalcSawNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
+    float Result(float x) { return waves.saw.result(x); }
+};
+class CalcNoiseNode : public CalcWaveNode {
+public:
+    CalcNoiseNode() : CalcWaveNode(ECalcNodeType::WAVEFORM){};
+    float Result(float x) { return waves.noise.result(x); }
+};
+
+//-------------------------
+
 class CalcNumberNode : public CalcNode
 {
 public:
@@ -57,7 +104,6 @@ public:
     };
     
     void update() override;
-    
 };
 
 class CalcMathOpNode : public CalcNumberNode
