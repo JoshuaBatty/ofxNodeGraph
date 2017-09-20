@@ -7,8 +7,6 @@
 //
 
 #include <algorithm>
-//#include <glm/glm.hpp>
-
 #include "NodeGraph.h"
 #include "ErrorHandling.h"
 
@@ -561,11 +559,12 @@ void NodeGraph::displayNode(ImDrawList* drawList, ImVec2 offset, Node* node, int
 	{
 		ImGui::SetCursorScreenPos(textOffset + ImVec2(10.0f, 0));
         
-        auto numberCon = NodeConnectionI32::CAST(con);
+        auto numberCon = NodeConnectionF32::CAST(con);
         
         if(numberCon)
         {
-            ImGui::Text("%d", numberCon->data);
+            ImGui::Text("%.1f", numberCon->data);
+            //ImGui::Text("%d", numberCon->data);
         }
         else
         {
@@ -592,14 +591,16 @@ void NodeGraph::displayNode(ImDrawList* drawList, ImVec2 offset, Node* node, int
         
 		ImGui::SetCursorScreenPos(textOffset + ImVec2(con->posX - (textSize.x + 10.0f), 0));
         
-        auto numberCon = NodeConnectionI32::CAST(con);
-        
+        auto numberCon = NodeConnectionF32::CAST(con);
+
         if(numberCon)
         {
-            ImGui::Text("%d", numberCon->data);
+            ImGui::Text("%.1f", numberCon->data);
+            //ImGui::Text("%d", numberCon->data);
         }
         else
         {
+            //cout << "dddds" << endl;
             ImGui::Text("%s", con->desc->displayName.c_str());
         }
         

@@ -16,9 +16,6 @@
 #include <imgui.h>
 
 #include "UniqueId.h"
-//#include "gtf/RHI.h"
-
-#include "ofMain.h"
 
 namespace gtf 
 {

@@ -8,10 +8,8 @@
 
 #pragma once
 
+#include "ofMain.h"
 #include <NodeGraph.h>
-#include <cstdint>
-#include <list>
-#include <vector>
 
 #define MAX_CONNECTION_COUNT 32
 
@@ -44,7 +42,7 @@ public:
     
     bool dirty { true };
     ECalcNodeType type;
-    int number { 0 };
+    float number { 0.0 };
     
     static CalcNode* CAST(gtf::Node* node){ return dynamic_cast<CalcNode*>(node); }
 };
@@ -68,33 +66,33 @@ public:
     CalcMathOpNode(ECalcNodeType _t) : CalcNumberNode(_t){};
     void update() override;
     
-    virtual int MathOp(int a, int b){ return 0; }
+    virtual float MathOp(float a, float b){ return 0; }
 };
 
 class CalcAddNode : public CalcMathOpNode
 {
 public:
     CalcAddNode() : CalcMathOpNode(ECalcNodeType::CNT_ADD){};
-    int MathOp(int a, int b) override { return a + b; }
+    float MathOp(float a, float b) override { return a + b; }
 };
 
 class CalcSubstractNode : public CalcMathOpNode
 {
 public:
     CalcSubstractNode() : CalcMathOpNode(ECalcNodeType::CNT_SUBSTRACT){};
-    int MathOp(int a, int b){ return a - b; }
+    float MathOp(float a, float b){ return a - b; }
 };
 
 class CalcMultiplyNode : public CalcMathOpNode
 {
 public:
     CalcMultiplyNode() : CalcMathOpNode(ECalcNodeType::CNT_MULTIPLY){};
-    int MathOp(int a, int b){ return a * b; }
+    float MathOp(float a, float b){ return a * b; }
 };
 
 class CalcDivideNode : public CalcMathOpNode
 {
 public:
     CalcDivideNode() : CalcMathOpNode(ECalcNodeType::CNT_DIVIDE){};
-    int MathOp(int a, int b){ return (b == 0) ? 0 : a / b; }
+    float MathOp(float a, float b){ return (b == 0) ? 0 : a / b; }
 };

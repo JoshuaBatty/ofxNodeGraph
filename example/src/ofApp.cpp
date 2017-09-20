@@ -2,8 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    window_width = 1040;
-    window_height = 720;
+    window_width = ofGetWidth();
+    window_height = ofGetHeight();
     
     ofSetLogLevel(OF_LOG_VERBOSE);
     
@@ -13,9 +13,9 @@ void ofApp::setup(){
     //------ SETUP NODE GRAPH
     calcGraphType = new gtf::NodeGraphType(GTF_UID("CalcGraphType"));
 
-    auto numberDesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionI32>(GTF_UID("NumberConnection"), "Value");
-    auto inputADesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionI32>(GTF_UID("NumberInputConnectionA"), "InputA");
-    auto inputBDesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionI32>(GTF_UID("NumberInputConnectionB"), "InputB");
+    auto numberDesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionF32>(GTF_UID("NumberConnection"), "Value");
+    auto inputADesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionF32>(GTF_UID("NumberInputConnectionA"), "InputA");
+    auto inputBDesc = new gtf::NodeConnectionDesc<gtf::NodeConnectionF32>(GTF_UID("NumberInputConnectionB"), "InputB");
     
     gtf::NodeTypeBase* nodeType = nullptr;
     nodeType = new gtf::NodeType<CalcNumberNode>(GTF_UID("CalcNumberNode"), "Number");
@@ -47,10 +47,6 @@ void ofApp::setup(){
     calcGraphType->registerNodeType(nodeType);
     
     calcGraphInstance = new CalcNodeGraph(calcGraphType);
-    
-    //gtf::GRHI->setClearColor(0.3f, 0.3f, 0.28f, 1.0f);
-    
-    ofClear(76,76,71,255);
 }
 
 //--------------------------------------------------------------
@@ -60,7 +56,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
+    ofBackground(76,76,71,255);
+
     //--------------required to call this at beginning
     this->gui.begin();
     
@@ -86,8 +83,7 @@ void ofApp::draw(){
             CalcNode* node = CalcNode::CAST(calcGraphInstance->selectedNodes.front());
             if(node && node->type == ECalcNodeType::CNT_NUMBER)
             {
-                
-                node->dirty = ImGui::InputInt("Value", &node->number);
+                node->dirty = ImGui::InputFloat("Value", &node->number);
             }
             
         }
@@ -167,7 +163,8 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-
+    window_width = w;
+    window_height = h;
 }
 
 //--------------------------------------------------------------

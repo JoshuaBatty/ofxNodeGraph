@@ -10,18 +10,20 @@
 
 void CalcNumberNode::update()
 {
+    dirty = true;
+
     if(dirty)
     {
         
         for (gtf::NodeConnectionBase* con : outputConnections)
         {
-            gtf::NodeConnectionI32 * numberCon = gtf::NodeConnectionI32::CAST(con);
+            gtf::NodeConnectionF32 * numberCon = gtf::NodeConnectionF32::CAST(con);
             numberCon->data = number;
         }
         
         for (gtf::NodeConnectionBase* con : outputConnections[0]->output)
         {
-            gtf::NodeConnectionI32 * numberCon = gtf::NodeConnectionI32::CAST(con);
+            gtf::NodeConnectionF32 * numberCon = gtf::NodeConnectionF32::CAST(con);
             numberCon->isDirty = true;
         }
         
@@ -39,15 +41,15 @@ void CalcMathOpNode::update()
     
     if(dirty)
     {
-        gtf::NodeConnectionI32 * inputA = gtf::NodeConnectionI32::CAST(inputConnections[0]);
-        gtf::NodeConnectionI32 * inputB = gtf::NodeConnectionI32::CAST(inputConnections[1]);
+        gtf::NodeConnectionF32 * inputA = gtf::NodeConnectionF32::CAST(inputConnections[0]);
+        gtf::NodeConnectionF32 * inputB = gtf::NodeConnectionF32::CAST(inputConnections[1]);
         
         int readyInputs = 0;
         
         if(inputConnections[0]->input != nullptr &&
            inputConnections[0]->input->isReady)
         {
-            gtf::NodeConnectionI32 const * inputASource = gtf::NodeConnectionI32::CAST(inputConnections[0]->input);
+            gtf::NodeConnectionF32 const * inputASource = gtf::NodeConnectionF32::CAST(inputConnections[0]->input);
             inputA->data = inputASource->data;
             readyInputs++;
         }
@@ -59,7 +61,7 @@ void CalcMathOpNode::update()
         if(inputConnections[1]->input != nullptr &&
            inputConnections[1]->input->isReady)
         {
-            gtf::NodeConnectionI32 const * inputBSource = gtf::NodeConnectionI32::CAST(inputConnections[1]->input);
+            gtf::NodeConnectionF32 const * inputBSource = gtf::NodeConnectionF32::CAST(inputConnections[1]->input);
             inputB->data = inputBSource->data;
             readyInputs++;
         }
@@ -71,7 +73,7 @@ void CalcMathOpNode::update()
         {
             inputA->isDirty = false;
             inputB->isDirty = false;
-            gtf::NodeConnectionI32 * output = gtf::NodeConnectionI32::CAST(outputConnections[0]);
+            gtf::NodeConnectionF32 * output = gtf::NodeConnectionF32::CAST(outputConnections[0]);
             
             number = output->data = MathOp(inputA->data, inputB->data);
             output->isReady = true; //(readyInputs == 2);
