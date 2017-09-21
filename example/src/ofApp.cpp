@@ -48,23 +48,23 @@ void ofApp::setup(){
     calcGraphType->registerNodeType(nodeType);
     
     //--- WAVEFORMS
-    nodeType = new gtf::NodeType<CalcSineNode>(GTF_UID("CalcSineNode"), "Sine");
+    nodeType = new gtf::NodeType<SignalSineNode>(GTF_UID("SignalSineNode"), "Sine");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
-    nodeType = new gtf::NodeType<CalcTriangleNode>(GTF_UID("CalcTriangleNode"), "Triangle");
+    nodeType = new gtf::NodeType<SignalTriangleNode>(GTF_UID("SignalTriangleNode"), "Triangle");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
-    nodeType = new gtf::NodeType<CalcSquareNode>(GTF_UID("CalcSquareNode"), "Square");
+    nodeType = new gtf::NodeType<SignalSquareNode>(GTF_UID("SignalSquareNode"), "Square");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
-    nodeType = new gtf::NodeType<CalcSawNode>(GTF_UID("CalcSawNode"), "Sawtooth");
+    nodeType = new gtf::NodeType<SignalSawNode>(GTF_UID("SignalSawNode"), "Sawtooth");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
-    nodeType = new gtf::NodeType<CalcNoiseNode>(GTF_UID("CalcNoiseNode"), "Noise");
+    nodeType = new gtf::NodeType<SignalNoiseNode>(GTF_UID("SignalNoiseNode"), "Noise");
     nodeType->outputConnectionsDesc.push_back(numberDesc);
     calcGraphType->registerNodeType(nodeType);
     
@@ -121,12 +121,12 @@ void ofApp::draw(){
                 node->dirty = ImGui::InputFloat("Value", &node->number);
             }
             
-            CalcWaveNode* wave_node = CalcWaveNode::CAST(calcGraphInstance->selectedNodes.front());
-            if(wave_node && wave_node->type == ECalcNodeType::WAVEFORM)
+            SignalNode* signal_node = SignalNode::CAST(calcGraphInstance->selectedNodes.front());
+            if(signal_node && signal_node->type == ECalcNodeType::WAVEFORM)
             {
-                wave_node->dirty = ImGui::InputFloat("Speed", &wave_node->speed);
-                wave_node->dirty = ImGui::InputFloat("Amp Min", &wave_node->amp_min);
-                wave_node->dirty = ImGui::InputFloat("Amp Max", &wave_node->amp_max);
+                signal_node->dirty = ImGui::InputFloat("Speed", &signal_node->speed);
+                signal_node->dirty = ImGui::InputFloat("Amp Min", &signal_node->amp_min);
+                signal_node->dirty = ImGui::InputFloat("Amp Max", &signal_node->amp_max);
             }
         }
     }

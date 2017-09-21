@@ -12,9 +12,7 @@
 #include <list>
 #include <vector>
 #include <map>
-
 #include <imgui.h>
-
 #include "UniqueId.h"
 
 namespace gtf 

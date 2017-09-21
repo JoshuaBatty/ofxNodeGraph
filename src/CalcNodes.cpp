@@ -23,14 +23,6 @@ void OutputNode::update() {
 }
 
 //--------------------------------------------------------------
-void CalcWaveNode::update() {
-    gtf::NodeConnectionF32 * output = gtf::NodeConnectionF32::CAST(outputConnections[0]);
-    
-    number = output->data = ofMap(Result(ofGetElapsedTimef()*speed),-1.0,1.0,amp_min,amp_max);
-    output->isReady = true;
-}
-
-//--------------------------------------------------------------
 void CalcNumberNode::update() {
     if(dirty){
         

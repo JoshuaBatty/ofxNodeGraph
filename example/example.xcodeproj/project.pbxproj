@@ -10,6 +10,7 @@
 		000315A9FA4E2F9A09533E05 /* EngineOpenGLES.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3174462C64E918D8DA23041B /* EngineOpenGLES.cpp */; };
 		00413C35AAE31B483D7538AB /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9E02D9F3A04B5573758EBCF8 /* imgui_draw.cpp */; };
 		016BB55A143AD429330F07DB /* Gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0E2047B4D03D5151730B52B /* Gui.cpp */; };
+		13CBF3961F733F90001B8CB1 /* SignalNodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13CBF3951F733F90001B8CB1 /* SignalNodes.cpp */; };
 		27CF6B6E279F8EE58C9D4B90 /* BaseTheme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E362ECECD928E7B3EBA5C53 /* BaseTheme.cpp */; };
 		302C0D67C4A841033D95BC5E /* CalcNodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE61A87874744E3EE0C83E44 /* CalcNodes.cpp */; };
 		3B4513FD428BA7D7BA3086A7 /* NodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A3FF8106232803BE619FF23 /* NodeGraph.cpp */; };
@@ -62,6 +63,9 @@
 		0F99D91BAC240A07901D0E6A /* stb_rect_pack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = stb_rect_pack.h; path = ../../../addons/ofxImGui/libs/imgui/src/stb_rect_pack.h; sourceTree = SOURCE_ROOT; };
 		12EBC5773B81D5E37E068E24 /* imgui_internal.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = imgui_internal.h; path = ../../../addons/ofxImGui/libs/imgui/src/imgui_internal.h; sourceTree = SOURCE_ROOT; };
 		13CBF38E1F72399E001B8CB1 /* Waveforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Waveforms.h; path = ../src/Waveforms.h; sourceTree = "<group>"; };
+		13CBF3931F733D9F001B8CB1 /* SignalNodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SignalNodes.h; path = ../src/SignalNodes.h; sourceTree = "<group>"; };
+		13CBF3941F733E52001B8CB1 /* NodeTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NodeTypes.h; path = ../src/NodeTypes.h; sourceTree = "<group>"; };
+		13CBF3951F733F90001B8CB1 /* SignalNodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SignalNodes.cpp; path = ../src/SignalNodes.cpp; sourceTree = "<group>"; };
 		2C966A8F6085AAA2FED6F411 /* Helpers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Helpers.cpp; path = ../../../addons/ofxImGui/src/Helpers.cpp; sourceTree = SOURCE_ROOT; };
 		2F1C686ADB50E8F79292BA80 /* EngineGLFW.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = EngineGLFW.cpp; path = ../../../addons/ofxImGui/src/EngineGLFW.cpp; sourceTree = SOURCE_ROOT; };
 		2FD46382BF7EEBAD87D25DB1 /* CalcNodeGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = CalcNodeGraph.h; path = ../../../addons/ofxNodeGraph/src/CalcNodeGraph.h; sourceTree = SOURCE_ROOT; };
@@ -220,8 +224,11 @@
 			children = (
 				E6824D89AE260CA3CA97EC43 /* CalcNodeGraph.cpp */,
 				2FD46382BF7EEBAD87D25DB1 /* CalcNodeGraph.h */,
+				13CBF3941F733E52001B8CB1 /* NodeTypes.h */,
 				BE61A87874744E3EE0C83E44 /* CalcNodes.cpp */,
 				9C651FBB078F645406982C95 /* CalcNodes.h */,
+				13CBF3951F733F90001B8CB1 /* SignalNodes.cpp */,
+				13CBF3931F733D9F001B8CB1 /* SignalNodes.h */,
 				13CBF38E1F72399E001B8CB1 /* Waveforms.h */,
 				0DF7689B6BA73A9FC34AFA46 /* GTF */,
 			);
@@ -375,6 +382,7 @@
 				A6F396BE5D1E24326E1F796A /* ofxImGuiLoggerChannel.cpp in Sources */,
 				5C2607C471F8D48C0036C56E /* imgui.cpp in Sources */,
 				E984796BE84AA4315636B6E7 /* imgui_demo.cpp in Sources */,
+				13CBF3961F733F90001B8CB1 /* SignalNodes.cpp in Sources */,
 				00413C35AAE31B483D7538AB /* imgui_draw.cpp in Sources */,
 				63C20ED345B9DF5E06755EA0 /* CalcNodeGraph.cpp in Sources */,
 				302C0D67C4A841033D95BC5E /* CalcNodes.cpp in Sources */,

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "CalcNodes.h"
+#include "SignalNodes.h"
 #include <imgui.h>
 
 
